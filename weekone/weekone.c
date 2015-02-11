@@ -86,7 +86,10 @@ int main(){
             }
         }
     }
-    printf("Verifica %d\n", contador);
+    if(dia == NULL){
+        printf("0 0\n");
+        return 1;
+    }
     
     contador=0;
     Ntopicos *proximodia = NULL;
