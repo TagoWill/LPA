@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
 #define N 300000
 
@@ -56,8 +55,6 @@ void verifica_dependencias(Ntopicos *verifica, int *contador){
 }
 
 int main(){
-    time_t start, stop;
-    time(&start);
     int i=0, j=0;
     int m,n, maxtopics;
     int max_topicos_dia = 0, max_desp_dias = 0;
@@ -152,9 +149,5 @@ int main(){
     }while(aponta2->next != NULL);*/
     
     printf("%d %d\n", max_topicos_dia, max_desp_dias);
-    
-    time(&stop);
-    
-    printf("Finished in about %f seconds. \n", difftime(stop, start));
     return 0;
 }
