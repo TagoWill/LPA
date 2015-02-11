@@ -12,19 +12,6 @@ typedef struct ntopicos{
     struct ntopicos *next;
 } Ntopicos;
 
-/*void eliminar_no(int numero, Ntopicos * verifica){
-    Ntopicos *aux = NULL, *aux2 = NULL;
-    if(verifica != NULL){
-        aux = verifica;
-        aux2 = verifica->next;
-        if(numero == aux->topico){
-            verifica = verifica->next;
-        }else if(numero == aux2->topico){
-            
-        }
-    }
-}*/
-
 void verifica_dependencias(Ntopicos *verifica, int *contador){
     int i;
     Ntopicos *elemento_momento = NULL;
@@ -36,14 +23,14 @@ void verifica_dependencias(Ntopicos *verifica, int *contador){
             for(i=0;i<10;i++){
                 if(elemento_momento->topico == tabela[i][1]){
                     if(proximo_elemento->topico == tabela[i][0]){
-                        printf("ELIMINO O %d\n", elemento_momento->topico);
+                        /*printf("ELIMINO O %d\n", elemento_momento->topico);*/
                         *contador = *contador -1;
                         /*eliminar_no(elemento_momento->topico, verifica);*/
                     }
                 }else if(proximo_elemento->topico == tabela[i][1]){
                     if(elemento_momento->topico == tabela[i][0]){
                         /*elimina proximo elemento*/
-                        printf("ELIMINO O %d\n", proximo_elemento->topico);
+                        /*printf("ELIMINO O %d\n", proximo_elemento->topico);*/
                         /*eliminar_no(proximo_elemento->topico, verifica);*/
                         *contador = *contador -1;
                     }
@@ -80,7 +67,7 @@ int main(){
        }while(j<n);
        if(!encontrou){
            contador++;
-           printf("%d\n", contador);
+           /*printf("%d\n", contador);*/
            Ntopicos *aux = malloc(sizeof(Ntopicos));
            aux->topico = i;
            if(dia == NULL){
@@ -103,7 +90,7 @@ int main(){
     contador=0;
     Ntopicos *proximodia = NULL;
     while(dia != NULL){
-        printf("|%d ", dia->topico);
+        /*printf("|%d ", dia->topico);*/
         i=0;
         do{
             if(dia->topico == tabela[i][0]){
@@ -125,14 +112,15 @@ int main(){
         if(dia->next != NULL){
             dia = dia->next;
         }else{
+            verifica_dependencias(proximodia, &contador);
+            /*printf(" - contador %d\n", contador);*/
+            
             if(contador>max_topicos_dia)
                 max_topicos_dia = contador;
-             if(contador>maxtopics){
+            if(contador>maxtopics){
                 max_desp_dias++;
-             }
+            }
             
-            verifica_dependencias(proximodia, &contador);
-            printf(" - contador %d\n", contador);
             contador=0;
             dia = proximodia;
             proximodia = NULL;
