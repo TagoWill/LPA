@@ -38,7 +38,7 @@ void verifica_dependencias(Ntopicos *verifica, int *contador){
             }
             elemento_momento = elemento_momento->next;
         }
-    }    
+    }
 }
 
 int main(){
@@ -53,51 +53,53 @@ int main(){
         scanf("%d %d", &tabela[i][0], &tabela[i][1]); /* criar tabela */
     }
     
-   Ntopicos *dia = NULL;
-   int contador=0;
-   for(i=0;i<m;i++){
-       encontrou = false;
-       j=0;
-       do{
-           if(i == tabela[j][1]){
-               encontrou = true;
-               break;
-           }
-           j++;
-       }while(j<n);
-       if(!encontrou){
-           contador++;
-           /*printf("%d\n", contador);*/
-           Ntopicos *aux = malloc(sizeof(Ntopicos));
-           aux->topico = i;
-           if(dia == NULL){
-               dia = aux;
-           }else{
-               Ntopicos *aponta = dia;
-               while(aponta->next != NULL){
-                   aponta = aponta->next;
-               }
-               aponta->next = aux;
-           }
-       }
-   }
-   
-   if(contador>max_topicos_dia)
-        max_topicos_dia = contador;
-    if(contador>maxtopics){
-        max_desp_dias++;
+    if (m == 0){
+        printf("0 0\n");
+        return 1;
     }
+    
+    Ntopicos *dia = NULL;
+    int contador=0;
+    for(i=0;i<m;i++){
+        encontrou = false;
+        j=0;
+        do{
+            if(i == tabela[j][1]){
+                encontrou = true;
+                break;
+            }
+            j++;
+        }while(j<n);
+        if(!encontrou){
+            contador++;
+            /*printf("%d\n", contador);*/
+            Ntopicos *aux = malloc(sizeof(Ntopicos));
+            aux->topico = i;
+            if(dia == NULL){
+                dia = aux;
+            }else{
+                Ntopicos *aponta = dia;
+                while(aponta->next != NULL){
+                    aponta = aponta->next;
+                }
+                aponta->next = aux;
+            }
+        }
+    }
+    printf("Verifica %d\n", contador);
+    
     contador=0;
     Ntopicos *proximodia = NULL;
     while(dia != NULL){
-        /*printf("|%d ", dia->topico);*/
+        printf("%d ", dia->topico);
         i=0;
+        contador++;
         do{
             if(dia->topico == tabela[i][0]){
-                contador++;
-                 Ntopicos *aux = malloc(sizeof(Ntopicos));
+                
+                Ntopicos *aux = malloc(sizeof(Ntopicos));
                 aux->topico = tabela[i][1];
-                 if(proximodia == NULL){
+                if(proximodia == NULL){
                     proximodia = aux;
                 }else{
                     Ntopicos *aponta = proximodia;
@@ -109,17 +111,20 @@ int main(){
             }
             i++;
         }while(i<n);
+        verifica_dependencias(dia, &contador);
         if(dia->next != NULL){
             dia = dia->next;
         }else{
-            verifica_dependencias(proximodia, &contador);
-            /*printf(" - contador %d\n", contador);*/
+            
+            printf(" - contador %d - ", contador);
             
             if(contador>max_topicos_dia)
                 max_topicos_dia = contador;
             if(contador>maxtopics){
                 max_desp_dias++;
             }
+            
+            printf("%d %d\n", max_topicos_dia, max_desp_dias);
             
             contador=0;
             dia = proximodia;
@@ -128,13 +133,13 @@ int main(){
     }
     
     
-    /*    
-    Ntopicos *aponta2 = dia;
-    printf("%d ", aponta2->topico);
-    do{
-        aponta2 = aponta2->next;
-        printf("%d ", aponta2->topico);
-    }while(aponta2->next != NULL);*/
+    /*
+     Ntopicos *aponta2 = dia;
+     printf("%d ", aponta2->topico);
+     do{
+     aponta2 = aponta2->next;
+     printf("%d ", aponta2->topico);
+     }while(aponta2->next != NULL);*/
     
     printf("%d %d\n", max_topicos_dia, max_desp_dias);
     return 0;
