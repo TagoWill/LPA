@@ -39,13 +39,13 @@ void verifica_dependencias(Ntopicos *verifica, int *contador){
                     if(proximo_elemento->topico == tabela[i][0]){
                         printf("ELIMINO O %d\n", elemento_momento->topico);
                         *contador = *contador -1;
-                        //eliminar_no(elemento_momento->topico, verifica);
+                        /*eliminar_no(elemento_momento->topico, verifica);*/
                     }
                 }else if(proximo_elemento->topico == tabela[i][1]){
                     if(elemento_momento->topico == tabela[i][0]){
-                        //elimina proximo elemento
+                        /*elimina proximo elemento*/
                         printf("ELIMINO O %d\n", proximo_elemento->topico);
-                        //eliminar_no(proximo_elemento->topico, verifica);
+                        /*eliminar_no(proximo_elemento->topico, verifica);*/
                         *contador = *contador -1;
                     }
                 }
