@@ -14,7 +14,8 @@ typedef struct ntopicos{
     struct ntopicos *next;
 } Ntopicos;
 
-int verifica2(int no, int n){
+int verifica2(int no, int n)
+{
     int i;
     for(i=0;i<n;i++){
         if(tabela[i][1] == no){
@@ -26,7 +27,8 @@ int verifica2(int no, int n){
     return 1;
 }
 
-void marcar(Ntopicos *lista){
+void marcar(Ntopicos *lista)
+{
     while(lista != NULL){
         usado[lista->topico] = 1;
         lista = lista->next;
@@ -68,30 +70,36 @@ int main(){
     int max_topicos_dia = 0, max_desp_dias = 0;
     bool encontrou = false;
     scanf("%d %d %d", &m, &n, &maxtopics);
-    
-    for(i=0;i<n;i++){
-        printf("tabela%d %d\n", tabela[i][0], tabela[i][1]);
-    }
-    for(i=0;i<m;i++){
-        printf("usados%d\n", usado[i]);
-    }
-    
+   
+    /* Se o numero de precedencias for 0 o resultado e' logo dado */
     if(n == 0){
         if(m>maxtopics)
             max_desp_dias++;
         printf("%d %d\n", m, max_desp_dias);
         return 1;
     }
-    
-    for(i = 0; i<n;i++){
-        scanf("%d %d", &tabela[i][0], &tabela[i][1]); /* criar tabela */
-    }
-    
+
+    /* Se o numero de topicos for 0 o resultado e' automaticamente 0 0 */
     if (m == 0){
         printf("0 0\n");
         return 1;
     }
+
+    /* Cria tabela */
+    for(i = 0; i<n;i++){
+        scanf("%d %d", &tabela[i][0], &tabela[i][1]); 
+    }
+
+     /* Imprime tabela com precedencias */
+    for(i=0;i<n;i++){
+        printf("precedencias: %d %d\n", tabela[i][0], tabela[i][1]);
+    }
+    /* Imprime topicos usados */
+    for(i=0;i<m;i++){
+        printf("topico %d (estudado): %d\n", i, usado[i]);
+    }
     
+    /* Procura a tabela por topicos sem precedencias */
     Ntopicos *dia = NULL;
     int contador=0;
     for(i=0;i<m;i++){
@@ -99,15 +107,18 @@ int main(){
         j=0;
         do{
             if(n!=0){
-                if(i == tabela[j][1]){
-                    
+                if(i == tabela[j][1])
+                {
+                    /* se encontra pa'ra o ciclo e prossegue */ 
                     encontrou = true;
                     break;
                 }
             }
             j++;
         }while(j<n);
-        if(!encontrou){
+        if(!encontrou)
+        {
+            /* coloca topicos no 1o dia */
             contador++;
             //usado[i] = 1;
             /*printf("%d\n", contador);*/
@@ -124,11 +135,13 @@ int main(){
             }
         }
     }
-    
+    /* Funcao para marcar o topico como estudado no array usados e avancar na lista */
     marcar(dia);
     
+    /* verifica se o contador esta superior ao numero de topicos estudados nesse dia e se sim iguala o num de topicos estudados nesse dia ao contador */
     if(contador>max_topicos_dia)
         max_topicos_dia = contador;
+    /* Verifica se o contador esta superior ao input maxtopics e se for verdade aumenta o numero de dias em que o jocas vai ficar desesperado */
     if(contador>maxtopics){
         max_desp_dias++;
     }
@@ -136,14 +149,14 @@ int main(){
     printf("Verifica Contador: %d\n", contador);
     
     for(i=0;i<m;i++){
-        printf("usados%d\n", usado[i]);
+        printf("topico %d (estudado): %d\n", i, usado[i]);
     }
-    
+    /* Se o primeiro dia estiver vazio ja pode terminar o programa */
     if(dia == NULL){
         printf("0 0\n");
         return 1;
     }
-    
+    /* Procura precedencias para os proximos dias */
     contador=0;
     Ntopicos *proximodia = NULL;
     while(dia != NULL){
@@ -174,7 +187,7 @@ int main(){
             dia = dia->next;
         }else{
             
-            printf(" - contador %d - ", contador);
+            printf("\nContador %d - ", contador);
             
             marcar(proximodia);
             
@@ -184,7 +197,7 @@ int main(){
                 max_desp_dias++;
             }
             
-            printf("%d %d\n", max_topicos_dia, max_desp_dias);
+            printf("Resultado actual: %d %d\n", max_topicos_dia, max_desp_dias);
             
             contador=0;
             dia = proximodia;
@@ -193,7 +206,7 @@ int main(){
     }
     
     for(i=0;i<m;i++){
-        printf("lol%d\n", usado[i]);
+        printf("topico %d (estudado): %d\n", i, usado[i]);
     }
     
     /*
@@ -205,6 +218,6 @@ int main(){
      }while(aponta2->next != NULL);
      */
     
-    printf("%d %d\n", max_topicos_dia, max_desp_dias);
+    printf("Resultado final: %d %d\n", max_topicos_dia, max_desp_dias);
     return 0;
 }
