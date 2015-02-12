@@ -1,0 +1,30 @@
+10 0 2
+Resposta: 10 0 (acertou)
+
+
+3 3 2
+0 1
+0 2
+1 2
+Resposta: 1 0 (acertou)
+
+
+3 3 2
+0 1
+1 2
+2 0
+Resposta: 0 0 (acertou)
+
+-1 -1 -1
+Resposta: 0 0 (acertou)
+
+4 4 1
+0 1
+0 2
+1 2
+1 3
+Resposta: 2 1 (acertou)
+
+10 1 8 
+1 0
+Resposta: 9 1 (acertou)
