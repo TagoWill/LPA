@@ -12,36 +12,47 @@ void calcularpontosmaximos(int valor ,int n){
     for(i=0;i<n;i++){
         if(array[i][1] == 0){
             
-            int proximo=i+1;
+            int proximo=i+1, fixo;
             while(array[proximo][1] == 1 && proximo<n){
                 proximo++;
             }
-            
-            if(array[i][0] == array[proximo][0]){
-                contadordepontos++;
-                array[i][1]=1;
-                do{
+            fixo = proximo;
+            if(proximo<n){
+                if(array[i][0] == array[proximo][0]){
                     contadordepontos++;
-                    array[proximo][1]=1;
-                    proximo++;
-                    while(array[proximo][1] == 1){
+                    array[i][1]=1;
+                    do{
+                        contadordepontos++;
+                        array[proximo][1]=1;
                         proximo++;
+                        while(array[proximo][1] == 1){
+                            proximo++;
+                        }
+                    }while(array[proximo][0] == array[i][0]);
+                    /*for(teste2=0;teste2<2;teste2++){
+                        for(teste=0;teste<n;teste++){
+                            printf("%d ",array[teste][teste2]);
+                        }
+                        printf("\n");
                     }
-                }while(array[proximo][0] == array[i][0]);
-            }
-            for(teste2=0;teste2<2;teste2++){
-                for(teste=0;teste<n;teste++){
-                    printf("%d ",array[teste][teste2]);
+                    printf("\n");*/
+                    calcularpontosmaximos(valor+(contadordepontos*(contadordepontos+1)), n);
+                    contadordepontos=0;
+                    proximo=fixo;
+                    array[i][1]=0;
+                    do{
+                        array[proximo][1]=0;
+                        proximo++;
+                        while(array[proximo][1] == 1 && array[proximo][0] != array[i][0]){
+                            proximo++;
+                        }
+                    }while(array[proximo][0] == array[i][0]);
                 }
-                printf("\n");
             }
-            printf("\n");
-            calcularpontosmaximos(valor, n);
-            
-
-
-            
         }
+    }
+    if(pontosmaximo<valor){
+        pontosmaximo = valor;
     }
 }
 
