@@ -27,30 +27,30 @@ void calcularpontosmaximos(int valor, int nivel ,int n){
                         contadordepontos++;
                         array[proximo][1]=1;
                         proximo++;
-                        while(array[proximo][1] == 1){
+                        while(array[proximo][1] == 1 && proximo<n){
                             proximo++;
                         }
-                    }while(array[proximo][0] == array[i][0]);
+                    }while(array[proximo][0] == array[i][0] && proximo<n);
                     
                     calcularpontosmaximos(valor+(contadordepontos*(contadordepontos+1)),nivel+1 ,n);
                     
                     contadordepontos=0;
-                    proximo=fixo;
+
                     array[i][1]=0;
                     do{
                         array[proximo][1]=0;
-                        proximo++;
-                        while(array[proximo][1] == 1 && array[proximo][0] != array[i][0] && proximo<n){
-                            proximo++;
+                        proximo--;
+                        while(array[proximo][0] != array[i][0] && proximo>fixo){
+                            proximo--;
                         }
-                    }while(array[proximo][0] == array[i][0]);
+                    }while(array[proximo][0] == array[i][0] && proximo>fixo);
 
                     proximo = i+1;
-                    while(array[i][0]==array[proximo][0]){
+                    while(array[i][0]==array[proximo][0] && proximo<n){
                         i++;
                         proximo++;
                     }
-                    
+
                 }
             }
         }
