@@ -8,11 +8,10 @@ static int array[N][2];
 int continua=0;
 
 void calcularpontosmaximos(int valor, int nivel ,int n){
-    if(continua==0){
-    //printf("nivel - %d\n",nivel);
-    int i, contadordepontos=0, teste, teste2;
+    
+    int i, contadordepontos=0;
     for(i=0;i<n;i++){
-        //printf("no - %d\n",array[i][0]);
+
         if(array[i][1] == 0){
             
             int proximo=i+1, fixo;
@@ -33,14 +32,6 @@ void calcularpontosmaximos(int valor, int nivel ,int n){
                         }
                     }while(array[proximo][0] == array[i][0]);
                     
-                    for(teste2=0;teste2<2;teste2++){
-                        for(teste=0;teste<n;teste++){
-                            printf("%d ",array[teste][teste2]);
-                        }
-                        printf("\n");
-                    }
-                    printf("\n");
-                    
                     calcularpontosmaximos(valor+(contadordepontos*(contadordepontos+1)),nivel+1 ,n);
                     
                     contadordepontos=0;
@@ -53,6 +44,13 @@ void calcularpontosmaximos(int valor, int nivel ,int n){
                             proximo++;
                         }
                     }while(array[proximo][0] == array[i][0]);
+
+                    proximo = i+1;
+                    while(array[i][0]==array[proximo][0]){
+                        i++;
+                        proximo++;
+                    }
+                    
                 }
             }
         }
@@ -60,17 +58,6 @@ void calcularpontosmaximos(int valor, int nivel ,int n){
     if(pontosmaximo<valor){
         pontosmaximo = valor;
     }
-        int lolololol=0, aux=0;
-        for(lolololol=0;lolololol<n;lolololol++){
-            if(array[lolololol][1] == 0){
-                aux = 1;
-            }
-        }
-        if(aux == 0){
-            continua = 1;
-        }
-           
-}
 }
 
 int main() {
