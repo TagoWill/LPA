@@ -4,64 +4,54 @@
 #define N 51
 
 int pontosmaximo=0;
-static int array[N][2];
-int continua=0;
 
-void calcularpontosmaximos(int valor,int n){
-    
-    int i, contadordepontos=0, j;
-    int pintei[N];
+void calcularpontosmaximos(int arrayactual[],int valor,int n){
+    int i;
+
     if(pontosmaximo<valor){
         pontosmaximo = valor;
     }
-    
-    for(i=0;i<n;i++){
+    if(n>1){
+        for(i=0;i<n;i++){
 
-        if(array[i][1] == 0){
+            int arraynovo[n], contadordepontos=0, tamanhonovoarray=0, diferente = 0;
             
-            int proximo=i+1, fixo;
-            while(array[proximo][1] == 1 && proximo<n){
-                proximo++;
-            }
-            fixo = proximo;
+            int proximo=i+1;
+            if(arrayactual[i] == arrayactual[proximo]){
+                contadordepontos++;
             if(proximo<n){
-                if(array[i][0] == array[proximo][0]){
-                    contadordepontos++;
-                    array[i][1]=1;
-                    pintei[i] = 1;
+                if(i!=0){
+                    int posicao =0;
                     do{
-                        contadordepontos++;
-                        array[proximo][1]=1;
-                        pintei[proximo]=1;
-                        proximo++;
-                        while(array[proximo][1] == 1 && proximo<n){
-                            proximo++;
-                        }
-                    }while(array[proximo][0] == array[i][0] && proximo<n);
-
-                    
-                    calcularpontosmaximos(valor+(contadordepontos*(contadordepontos+1)),n);
-                    
-                    contadordepontos=0;
-                    
-                    for(j=0;j<n;j++){
-                        if(pintei[j]==1){
-                            pintei[j]=0;
-                            array[j][1]=0;
-                        }
-                    }
-                    
-                    proximo = i+1;
-                    while(array[i][0]==array[proximo][0] && proximo<n){
-                        i++;
-                        proximo++;
-                    }
-
+                        arraynovo[tamanhonovoarray] = arrayactual[posicao];
+                        tamanhonovoarray++;
+                        posicao++;
+                    }while(posicao<i);
                 }
+                do{
+                    if(arrayactual[proximo] == arrayactual[i] && diferente == 0){
+                        contadordepontos++;
+                    }else{
+                        diferente = 1;
+                        arraynovo[tamanhonovoarray] = arrayactual[proximo];
+                        tamanhonovoarray++;
+                    }
+                    proximo++;
+                }while(proximo<n);
+                
+                calcularpontosmaximos(arraynovo,valor+(contadordepontos*(contadordepontos+1)),tamanhonovoarray);
+                
+                
+                proximo = i+1;
+                while(arrayactual[i]==arrayactual[proximo] && proximo<n){
+                    i++;
+                    proximo++;
+                }
+                
             }
         }
+        }
     }
-
 }
 
 int main() {
@@ -71,13 +61,14 @@ int main() {
         
         pontosmaximo=0;
         scanf("%d", &n);
+        int array[n];
         
         for(i=0;i<n;i++){
-            scanf("%d", &array[i][0]);
-            array[i][1]=0;
+            scanf("%d", &array[i]);
         }
         
-        calcularpontosmaximos(0,n);
+        calcularpontosmaximos(array,0,n);
+        
         printf("%d\n", pontosmaximo);
     }
     
