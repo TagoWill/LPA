@@ -1,50 +1,41 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-int tabela[21][3];
-int contador=0;
+static int tabela[21][3];
 int tamanho=0;
 
-int testarString(int posi, int estado, int tamanho){
-    
+int testarString(int posi, int estado){
+    int contador = 0;
     if(posi<tamanho){
-        testarString(posi+1, tabela[estado][0], tamanho);
-        testarString(posi+1, tabela[estado][1], tamanho);
-    }
-    
-    if(posi == tamanho && tabela[estado][2] == 1){
-        contador++;
+        contador += testarString(posi+1, tabela[estado][0]);
+        contador += testarString(posi+1, tabela[estado][1]);
+    }else if(posi == tamanho && tabela[estado][2] == 1){
+        return 1;
+    }else{
         return 0;
     }
-    return 0;
+    return contador;
 }
 
 
 int main() {
     
-    int i, j, n, m;
-    char teste;
+    int i, n, m, resultado;
+    char teste[40];
     while(scanf("%d %d", &n, &m) != EOF){
-        contador = 0;
         tamanho = m;
-        for(i=1;i<n+1;i++){
-            for(j=0;j<2;j++){
-                scanf("%s", &teste);
-                if(teste == '*'){
-                    tabela[i-1][2] = 1;
-                    scanf("%s", &teste);
-                    tabela[i][j] = teste - '0';
-                }else{
-                tabela[i][j] = teste - '0';
-                }
+        for(i=0;i<n+1;i++){
+            fgets(teste, 30, stdin);
+            sscanf(teste, "%d %d", &tabela[i][0], &tabela[i][1]);
+            if(teste[strlen(teste)-2] == '*'){
+                tabela[i][2] = 1;
             }
         }
         
+        resultado = testarString(0,1);
         
-        testarString(1, tabela[1][0], tamanho);
-        testarString(1, tabela[1][1], tamanho);
-        
-        printf("%d\n", contador);
+        printf("%d\n", resultado);
         
     }
     return 0;
