@@ -5,13 +5,13 @@ int usado[100];
 int ligacoes[100][100];
 int best = 0, n;
 
-void verificaCoisas(int escolhi[], int size){
+void verificaCoisas(int posi,int escolhi[], int size){
     int feasible = 0;
     int i, j;
     if(best<size){
         best=size;
     }
-    for(i=0; i<n; i++){
+    for(i=posi; i<n; i++){
         feasible = 0;
         if(usado[i] == 0){
             for(j=0;j<size;j++){
@@ -23,7 +23,7 @@ void verificaCoisas(int escolhi[], int size){
             if(feasible == 0){
                 escolhi[size] = i;
                 usado[i] = 1;
-                verificaCoisas(escolhi, size+1);
+                verificaCoisas(i,escolhi, size+1);
                 usado[i] = 0;
             }
         }
@@ -44,7 +44,7 @@ int main() {
     }
     
 
-    verificaCoisas(escolhi, 0);
+    verificaCoisas(0, escolhi, 0);
     
     printf("%d\n", best);
 
