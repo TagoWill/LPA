@@ -32,13 +32,12 @@ int calcularTempos(int posi, int forno1, int forno2){
 int main() {
     
     int i;
-    int minimo;
-    float aux;
+    int minimo, aux, aux2;
     
     while(scanf("%d", &tamanho) != EOF){
         for(i=0;i<tamanho;i++){
-            scanf("%f", &aux);
-            pizzas[i] = aux * 100;
+            scanf("%d.%d", &aux, &aux2);
+            pizzas[i] = (aux * 100) + aux2;
             media += pizzas[i];
         }
         
@@ -46,9 +45,8 @@ int main() {
         
         minimo = calcularTempos(1, pizzas[0], 0);
         
-        aux = minimo / 100.0;
         
-        printf("%.2f\n", aux);
+        printf("%.2f\n", minimo / 100.0);
     }
     
     return 0;
