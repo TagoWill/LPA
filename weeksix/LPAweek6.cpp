@@ -21,15 +21,15 @@ int ligarNo(int no, int c){
     return ligacao;
 }
 
-void encontraCentroides(int n, int c, int posi){
+void encontraCentroides(int n, int c, int posi, int escolhido){
     int i, maiordistancia=0, total=0 ;
     
     if(posi<c){
-        for(i=0;i<n;i++){
+        for(i=escolhido;i<n;i++){
             if(usados[i]==0){
                 usados[i]=1;
                 centroides[posi]=i;
-                encontraCentroides(n, c, posi+1);
+                encontraCentroides(n, c, posi+1, i);
                 usados[i]=0;
             }
         }
@@ -67,7 +67,7 @@ int main() {
         distancias[no2-1][no1-1] = distancia;
     }
 
-    encontraCentroides(n, c, 0);
+    encontraCentroides(n, c, 0, 0);
 
     printf("%d\n", tdistancia);
     
