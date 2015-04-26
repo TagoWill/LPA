@@ -12,11 +12,11 @@ struct dia{
 };
 
 struct dia tabela[N];
-int total;
-int semanas=0;
+
 
 int main(){
-    
+    int total;
+    int semanas=0;
     int i, j;
     int populacao=0, nosligados=0;
     int n;
@@ -89,7 +89,6 @@ int main(){
         a = b;
         b = c;
         if(total<=0){
-            //printf("%d\n", semanas);
             posso=1;
         }
     }
