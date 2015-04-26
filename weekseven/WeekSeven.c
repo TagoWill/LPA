@@ -79,6 +79,10 @@ int main(){
                     total = total - tabela[tabela[a[j]].ponteiros[i]].populacao;
                     b[contador2] = tabela[a[j]].ponteiros[i];
                     contador2++;
+                    if(total<=0){
+                        posso=1;
+                        break;
+                    }
                 }
             }
             j++;
@@ -90,9 +94,6 @@ int main(){
         c = a;
         a = b;
         b = c;
-        if(total<=0){
-            posso=1;
-        }
     }
     if(total<=0){
         printf("%d\n", semanas);
