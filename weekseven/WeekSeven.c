@@ -11,7 +11,7 @@ struct dia{
     int usado;
 };
 
-struct dia tabela[N];
+
 
 
 int main(){
@@ -21,19 +21,21 @@ int main(){
     int populacao=0, nosligados=0;
     int n;
     int contador=0, contador2=0;
-    int aux[N], aux2[N];
     while(scanf("%d %d", &n, &total)!=EOF){
+    struct dia tabela[n];
+    int aux[n], aux2[n];
     
     /*Inicializa*/
     for(i=0;i<n;i++){
+        tabela[i].populacao = 0;
         tabela[i].depedencias = 0;
         tabela[i].ligacoes = 0;
         tabela[i].usado=0;
     }
     
+    int id;
     /*Contruir array de estrutura*/
     for(i=0;i<n;i++){
-        int id;
         scanf("%d %d", &populacao, &nosligados);
         tabela[i].populacao = populacao;
         tabela[i].ligacoes = nosligados;
